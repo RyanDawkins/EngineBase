@@ -7,12 +7,13 @@
 //
 
 #ifndef __EngineBase__Scene__
-#define __EngineBase__Scene__/Users/dawkins/XCode Projects/EngineBase/EngineBase/Scene.h
+#define __EngineBase__Scene__
+#ifndef WorldSettings//.h
+#include "WorldSettings.h"
+#endif
 
 #include <iostream>
-#include "WorldSettings.h"
 
-#endif /* defined(__EngineBase__Scene__) */
 class Scene
 {
 private:
@@ -23,3 +24,5 @@ public:
     WorldSettings* getWorldSettings();
     Scene* setWorldSettings(WorldSettings* worldSettings);
 };
+
+#endif /* defined(__EngineBase__Scene__) */

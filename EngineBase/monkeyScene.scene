@@ -36,3 +36,5 @@ meshInstance
 	diffuseTexture "hex.png"
 }
 
+{
+}

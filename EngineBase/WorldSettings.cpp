@@ -42,11 +42,11 @@ WorldSettings* WorldSettings::setSpp(int spp)
 }
 
 // Getter/Setter for background color
-float WorldSettings::getBackgroundColor()
+glm::vec4 WorldSettings::getBackgroundColor()
 {
     return this->backgroundColor;
 }
-WorldSettings* WorldSettings::setBackgroundColor(float backgroundColor)
+WorldSettings* WorldSettings::setBackgroundColor(glm::vec4 backgroundColor)
 {
     this->backgroundColor = backgroundColor;
     return this;
@@ -60,5 +60,16 @@ std::string WorldSettings::getBackgroundMusic()
 WorldSettings* WorldSettings::setBackgroundMusic(std::string)
 {
     this->backgroundMusic = backgroundMusic;
+    return this;
+}
+
+// Getter/Setter for window title
+std::string WorldSettings::getWindowTitle()
+{
+    return this->windowTitle;
+}
+WorldSettings* WorldSettings::setWindowTitle(std::string windowTitle)
+{
+    this->windowTitle = windowTitle;
     return this;
 }

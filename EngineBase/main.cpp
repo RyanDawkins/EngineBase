@@ -6,6 +6,11 @@
 //-------------------------------------------------------------------------//
 
 #include "EngineUtil.h"
+#include "SceneBuilder.h"
+#include "Scene.h"
+#include "WorldSettingsBuilder.h"
+#include "WorldSettings.h"
+#include "MeshInstance.h"
 
 //-------------------------------------------------------------------------//
 // Callback for Keyboard Input
@@ -50,25 +55,16 @@ RGBAImage textureImage;
 
 string ONE_TOKENS = "{}[]()<>+-*/,;";
 
-void loadWorldSettings(FILE *F)
+void loadWorldSettings(WorldSettings* worldSettings)
 {
-	string token, t;
-	while (getToken(F, token, ONE_TOKENS)) {
-		//cout << "  " << token << endl;
-		if (token == "}") break;
-		if (token == "windowTitle") getToken(F, gWindowTitle, ONE_TOKENS);
-		else if (token == "width") getInts(F, &gWidth, 1);
-		else if (token == "height") getInts(F, &gHeight, 1);
-		else if (token == "spp") getInts(F, &gSPP, 1);
-		else if (token == "backgroundColor") getFloats(F, &backgroundColor[0], 3);
-		else if (token == "backgroundMusic") {
-			string fileName, fullFileName;
-			getToken(F, fileName, ONE_TOKENS);
-			getFullFileName(fileName, fullFileName);
-			ISound* music = soundEngine->play2D(fullFileName.c_str(), true);
-		}
-	}
-
+    
+    backgroundColor = worldSettings->getBackgroundColor();
+    gSPP = worldSettings->getSpp();
+    gHeight = worldSettings->getHeight();
+    gWidth = worldSettings->getWidth();
+    soundEngine->play2D(worldSettings->getBackgroundMusic().c_str(), true);
+    gWindowTitle = worldSettings->getWindowTitle();
+    
 	// Initialize the window with OpenGL context
 	gWindow = createOpenGLWindow(gWidth, gHeight, gWindowTitle.c_str(), gSPP);
 	glfwSetKeyCallback(gWindow, keyCallback);
@@ -152,10 +148,19 @@ void loadScene(const char *sceneFile)
 	FILE *F = openFileForReading(sceneFile);
 	string token;
 
+    SceneBuilder* sceneBuilder = new SceneBuilder();
+    sceneBuilder->jsonFromFile(sceneFile);
+    Scene* scene = sceneBuilder->forge();
+    WorldSettings* worldSettings = scene->getWorldSettings();
+    
+//    delete sceneBuilder;
+//    sceneBuilder = NULL;
+    loadWorldSettings(worldSettings);
+    
 	while (getToken(F, token, ONE_TOKENS)) {
 		//cout << token << endl;
 		if (token == "worldSettings") {
-			loadWorldSettings(F);
+//			loadWorldSettings(F);
 		}
 		else if (token == "mesh") {
 			loadMesh(F);

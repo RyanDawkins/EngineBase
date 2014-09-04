@@ -10,8 +10,7 @@
 #define __EngineBase__WorldSettings__
 
 #include <iostream>
-
-#endif /* defined(__EngineBase__WorldSettings__) */
+#include <glm/glm.hpp>
 
 class WorldSettings
 {
@@ -19,8 +18,9 @@ private:
     int width;
     int height;
     int spp;
-    float backgroundColor;
+    glm::vec4 backgroundColor;
     std::string backgroundMusic;
+    std::string windowTitle;
 public:
     int getWidth();
     WorldSettings* setWidth(int width);
@@ -28,8 +28,12 @@ public:
     WorldSettings* setHeight(int height);
     int getSpp();
     WorldSettings* setSpp(int spp);
-    float getBackgroundColor();
-    WorldSettings* setBackgroundColor(float backgroundcolor);
+    glm::vec4 getBackgroundColor();
+    WorldSettings* setBackgroundColor(glm::vec4 backgroundcolor);
     std::string getBackgroundMusic();
     WorldSettings* setBackgroundMusic(std::string);
+    std::string getWindowTitle();
+    WorldSettings* setWindowTitle(std::string windowTitle);
 };
+
+#endif /* defined(__EngineBase__WorldSettings__) */
