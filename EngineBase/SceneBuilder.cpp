@@ -58,7 +58,18 @@ Scene* SceneBuilder::forge()
     
     WorldSettingsBuilder* wsBuilder = new WorldSettingsBuilder(wsJson);
     scene->setWorldSettings(wsBuilder->forgeWorldSettings());
+
+    json11::Json* mJson = new json11::Json((*this->json)["meshes"]);
+
+    MeshBuilder* meshBuilder = new MeshBuilder();
+    meshBuilder->setJson(mJson);
+    scene->setMeshes(meshBuilder->forgeMeshes());
     
+    json11::Json* pJson = new json11::Json((*this->json)["camera"]);
+    PovBuilder* povBuilder = new PovBuilder();
+    povBuilder->setJson(pJson);
+    scene->setPov(povBuilder->forge());
+
     // WorldSettingsBuilder deallocates the json so we will set it to null
     wsJson = NULL;
     return scene;

@@ -60,13 +60,16 @@ WorldSettings* WorldSettingsBuilder::forgeWorldSettings()
     json11::Json::object worldSettingsJson = this->json->object_items();
     
     int width = worldSettingsJson["width"].int_value();
-    
-    std::cout << "Width: " << width << std::endl;
-    
     int height = worldSettingsJson["height"].int_value();
     int spp = worldSettingsJson["spp"].int_value();
     std::string backgroundMusic = worldSettingsJson["backgroundMusic"].string_value();
     std::string windowTitle = worldSettingsJson["windowTitle"].string_value();
+    
+    std::cout << "Width      : " << width << std::endl;
+    std::cout << "Height     : " << height << std::endl;
+    std::cout << "Spp        : " << spp << std::endl;
+    std::cout << "Music      : " << backgroundMusic << std::endl;
+    std::cout << "WindowTitle: " << windowTitle << std::endl;
     
     // Grabbing all the colors
     glm::vec4 backgroundColor;
@@ -93,7 +96,7 @@ WorldSettings* WorldSettingsBuilder::forgeWorldSettings()
     } else {
         backgroundColor.a = 1;
     }
-    
+    std::cout << "music file" << backgroundMusic << std::endl;
     worldSettings->setHeight(height)
         ->setWidth(width)
         ->setSpp(spp)

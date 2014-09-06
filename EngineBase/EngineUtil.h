@@ -220,7 +220,7 @@ public:
     
 	void refreshTransform(void);
     
-	void draw(Camera &camera);
+	void draw(Camera* camera);
 };
 
 //-------------------------------------------------------------------------//

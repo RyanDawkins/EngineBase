@@ -610,7 +610,7 @@ TriMeshInstance::TriMeshInstance(void)
 
 //-------------------------------------------------------------------------//
 
-void TriMeshInstance::draw(Camera &camera)
+void TriMeshInstance::draw(Camera* camera)
 {
 	glUseProgram(shaderProgram);
     
@@ -631,16 +631,16 @@ void TriMeshInstance::draw(Camera &camera)
 
 	loc = glGetUniformLocation(shaderProgram, "uObjectWorldM");
 	if (loc != -1) glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(T.transform));
-	//else ERROR("Could not load uniform uObjectWorldM", false);
+	else ERROR("Could not load uniform uObjectWorldM", false);
 
 	loc = glGetUniformLocation(shaderProgram, "uObjectWorldInverseM");
 	if (loc != -1) glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(T.invTransform));
-	//else ERROR("Could not load uniform uObjectWorldInverseM", false);
+	else ERROR("Could not load uniform uObjectWorldInverseM", false);
 
-	glm::mat4x4 objectWorldViewPerspect = camera.worldViewProject * T.transform;
+	glm::mat4x4 objectWorldViewPerspect = camera->worldViewProject * T.transform;
 	loc = glGetUniformLocation(shaderProgram, "uObjectPerpsectM");
 	if (loc != -1) glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(objectWorldViewPerspect));
-	//else ERROR("Could not load uniform uObjectPerpsectM", false);
+	else ERROR("Could not load uniform uObjectPerpsectM", false);
     
 	triMesh->draw();
 }

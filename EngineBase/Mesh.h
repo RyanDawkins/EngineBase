@@ -18,12 +18,23 @@ class Mesh
 private:
     std::string name;
     std::string file;
-    std::vector<MeshInstance*> meshInstances;
+    std::vector<MeshInstance*>* meshInstances;
 public:
+
+    // Constructor stuff
+    void constructor(long meshInstancesSize);
+    Mesh();
+    Mesh(long meshInstancesSize);
+
+    // Getters and setters
     std::string getName();
     Mesh* setName(std::string name);
     std::string getFile();
     Mesh* setFile(std::string file);
+
+    // Adding MeshInstances
+    Mesh* addInstance(MeshInstance* meshInstance);
+    std::vector<MeshInstance*>* getInstances();
 };
 
 

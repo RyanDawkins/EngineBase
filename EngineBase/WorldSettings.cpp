@@ -57,7 +57,7 @@ std::string WorldSettings::getBackgroundMusic()
 {
     return this->backgroundMusic;
 }
-WorldSettings* WorldSettings::setBackgroundMusic(std::string)
+WorldSettings* WorldSettings::setBackgroundMusic(std::string backgroundMusic)
 {
     this->backgroundMusic = backgroundMusic;
     return this;

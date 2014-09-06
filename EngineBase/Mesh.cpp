@@ -8,6 +8,38 @@
 
 #include "Mesh.h"
 
+Mesh::Mesh()
+{
+    this->constructor(0);
+};
+
+Mesh::Mesh(long meshInstancesSize)
+{
+    this->constructor(meshInstancesSize);
+};
+
+void Mesh::constructor(long meshInstancesSize)
+{
+    if(meshInstancesSize > 0) {
+        this->meshInstances = new std::vector<MeshInstance*>(meshInstancesSize);
+    }
+};
+
+Mesh* Mesh::addInstance(MeshInstance *meshInstance) {
+
+    // Dynamically resizing incase we add too much baloney.
+    if(this->meshInstances == NULL) {
+        std::cout << "WHAT THE HECK" << std::endl;
+        exit(0);
+    }
+    
+    if(this->meshInstances->max_size() == this->meshInstances->size()) {
+        this->meshInstances->resize(this->meshInstances->max_size() * 2);
+    }
+    this->meshInstances->push_back(meshInstance);
+    return this;
+}
+
 std::string Mesh::getName()
 {
     return this->name;
@@ -26,4 +58,9 @@ Mesh* Mesh::setFile(std::string file)
 {
     this->file = file;
     return this;
+}
+
+std::vector<MeshInstance*>* Mesh::getInstances()
+{
+    return this->meshInstances;
 }

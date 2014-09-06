@@ -34,3 +34,30 @@ Scene* Scene::setWorldSettings(WorldSettings* worldSettings)
     this->worldSettings = worldSettings;
     return this;
 };
+
+std::vector<Mesh*>* Scene::getMeshes() {
+    return this->meshes;
+}
+Scene* Scene::setMeshes(std::vector<Mesh*> *meshes) {
+    this->meshes = meshes;
+    return this;
+}
+
+void Scene::addMesh(Mesh* mesh)
+{
+    if(this->meshes->max_size() > this->meshes->size())
+    {
+        this->meshes->resize(this->meshes->max_size() * 2);
+    }
+    this->meshes->push_back(mesh);
+}
+
+Pov* Scene::getPov()
+{
+    return this->pov;
+}
+Scene* Scene::setPov(Pov* pov)
+{
+    this->pov = pov;
+    return this;
+}

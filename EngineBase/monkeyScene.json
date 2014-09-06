@@ -5,7 +5,7 @@
         "height": 600,
         "spp": 4,
         "backgroundColor": [0.5, 0.5, 0.8],
-        "backgroundMusic": "bell.wav"
+        "backgroundMusic": "avemaria.wav"
     },
     "camera": {
         "name": "camera1",

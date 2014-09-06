@@ -8,21 +8,36 @@
 
 #ifndef __EngineBase__Scene__
 #define __EngineBase__Scene__
-#ifndef WorldSettings//.h
-#include "WorldSettings.h"
-#endif
 
 #include <iostream>
+#include "WorldSettings.h"
+#include <vector>
+#include "Mesh.h"
+#include "Pov.h"
 
 class Scene
 {
 private:
+    std::vector<Mesh*>* meshes;
     WorldSettings* worldSettings;
+    Pov* pov;
 public:
+
+    // Constructor junkkk
     Scene();
     ~Scene();
+
+    // Getters/setters
     WorldSettings* getWorldSettings();
     Scene* setWorldSettings(WorldSettings* worldSettings);
+
+    // Mesh junk
+    std::vector<Mesh*>* getMeshes();
+    Scene* setMeshes(std::vector<Mesh*>* meshes);
+    void addMesh(Mesh* mesh);
+    
+    Pov* getPov();
+    Scene* setPov(Pov* pov);
 };
 
 #endif /* defined(__EngineBase__Scene__) */

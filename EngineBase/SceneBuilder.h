@@ -18,6 +18,10 @@
 #include "Scene.h"
 #include "WorldSettingsBuilder.h"
 #include "WorldSettings.h"
+#include "Mesh.h"
+#include "MeshBuilder.h"
+#include "PovBuilder.h"
+#include "Pov.h"
 
 class SceneBuilder
 {
