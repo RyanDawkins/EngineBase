@@ -2,22 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d78f3e8e-503c-4704-aef1-e9aad1b63791" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/EngineBase/Pov.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/EngineBase/Pov.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/EngineBase/PovBuilder.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/EngineBase/PovBuilder.h" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/EngineBase/Wd40.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/EngineBase/Wd40.h" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/EngineBase/monkeyScene.scene" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EngineBase/Mesh.cpp" afterPath="$PROJECT_DIR$/EngineBase/Mesh.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EngineBase/Mesh.h" afterPath="$PROJECT_DIR$/EngineBase/Mesh.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EngineBase/Scene.cpp" afterPath="$PROJECT_DIR$/EngineBase/Scene.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EngineBase/Scene.h" afterPath="$PROJECT_DIR$/EngineBase/Scene.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EngineBase/SceneBuilder.cpp" afterPath="$PROJECT_DIR$/EngineBase/SceneBuilder.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EngineBase/SceneBuilder.h" afterPath="$PROJECT_DIR$/EngineBase/SceneBuilder.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EngineBase/main.cpp" afterPath="$PROJECT_DIR$/EngineBase/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EngineBase/monkeyScene.json" afterPath="$PROJECT_DIR$/EngineBase/monkeyScene.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EngineBase.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/EngineBase.xcodeproj/project.pbxproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EngineBase/EngineUtil.h" afterPath="$PROJECT_DIR$/EngineBase/EngineUtil.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EngineBase/Pov.cpp" afterPath="$PROJECT_DIR$/EngineBase/Pov.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EngineBase/Pov.h" afterPath="$PROJECT_DIR$/EngineBase/Pov.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EngineBase/Wd40.cpp" afterPath="$PROJECT_DIR$/EngineBase/Wd40.cpp" />
     </list>
     <ignored path="EngineBase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,8 +31,8 @@
       <file leaf-file-name="MeshBuilder.cpp" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EngineBase/MeshBuilder.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1455">
-              <caret line="86" column="26" selection-start-line="86" selection-start-column="12" selection-end-line="86" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="1455">
+              <caret line="87" column="12" selection-start-line="87" selection-start-column="12" selection-end-line="87" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -53,8 +41,8 @@
       <file leaf-file-name="SceneBuilder.cpp" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/EngineBase/SceneBuilder.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.60504204" vertical-offset="138" max-vertical-offset="1215">
-              <caret line="38" column="26" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.2084942" vertical-offset="138" max-vertical-offset="1215">
+              <caret line="20" column="135" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -97,8 +85,8 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="22" />
-    <option name="width" value="1920" />
-    <option name="height" value="1174" />
+    <option name="width" value="1440" />
+    <option name="height" value="874" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -240,8 +228,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1920" height="1174" extended-state="6" />
-    <editor active="true" />
+    <frame x="0" y="22" width="1440" height="874" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -251,18 +239,18 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3285068" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279503" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16927083" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3285068" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3279503" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -286,6 +274,30 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/EngineBase/MeshBuilder.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1455">
+          <caret line="86" column="26" selection-start-line="86" selection-start-column="12" selection-end-line="86" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EngineBase/SceneBuilder.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="138" max-vertical-offset="1215">
+          <caret line="38" column="26" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/EngineBase/SceneBuilder.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="298" max-vertical-offset="810">
+          <caret line="40" column="28" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/EngineBase/MeshBuilder.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="1365">
@@ -428,8 +440,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/EngineBase/MeshBuilder.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="270" max-vertical-offset="1455">
-          <caret line="86" column="26" selection-start-line="86" selection-start-column="12" selection-end-line="86" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="1455">
+          <caret line="87" column="12" selection-start-line="87" selection-start-column="12" selection-end-line="87" selection-end-column="12" />
           <folding />
         </state>
       </provider>
@@ -444,8 +456,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/EngineBase/SceneBuilder.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60504204" vertical-offset="138" max-vertical-offset="1215">
-          <caret line="38" column="26" selection-start-line="38" selection-start-column="26" selection-end-line="38" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.2084942" vertical-offset="138" max-vertical-offset="1215">
+          <caret line="20" column="135" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
           <folding />
         </state>
       </provider>

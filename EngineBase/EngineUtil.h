@@ -172,6 +172,8 @@ public:
 			(float)(screenWidth / screenHeight), (float)znear, (float)zfar);
 		worldViewProject = project * worldView;
 	}
+    
+    
 };
 
 //-------------------------------------------------------------------------//

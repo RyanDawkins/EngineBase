@@ -45,9 +45,10 @@ public:
     float getZfar();
     Pov* setZfar(float zfar);
     
-    void translate(const glm::vec3 &t);
-    
-    void rotate(glm::vec3 axis, float angle);
+    void translateGlobal(glm::vec3 &t);
+    void translateLocal(glm::vec3 &t);
+    void rotateGlobal(glm::vec3 axis, float angle);
+    void rotateLocal(glm::vec3 axis, float angle);
 };
 
 #endif /* defined(__EngineBase__Pov__) */

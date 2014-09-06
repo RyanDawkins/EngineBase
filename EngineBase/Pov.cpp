@@ -78,22 +78,28 @@ Pov* Pov::setZfar(float zfar)
     return this;
 };
 
-void Pov::translate(const glm::vec3 &t) {
-    std::cout << "Translating" << std::endl;
-    glm::vec3 zz = glm::normalize(this->eye - this->center);
-    glm::vec3 xx = glm::normalize(glm::cross(this->vup, zz));
+void Pov::translateGlobal(glm::vec3 &t) { eye += t; center += t; }
+void Pov::translateLocal(glm::vec3 &t) {
+    glm::vec3 zz = glm::normalize(eye - center);
+    glm::vec3 xx = glm::normalize(glm::cross(vup, zz));
     glm::vec3 yy = glm::cross(zz, xx);
     glm::vec3 tt = t.x*xx + t.y*yy + t.z*zz;
-    this->eye += tt; center += tt;
+    eye += tt; center += tt;
 }
-
-void Pov::rotate(glm::vec3 axis, float angle) {
-    std::cout << "Rotating" << std::endl;
+void Pov::rotateGlobal(glm::vec3 axis, float angle) {
     glm::mat4x4 R = glm::axisAngleMatrix(axis, angle);
-    glm::vec4 zz = glm::vec4(this->eye - this->center, 0);
+    glm::vec4 zz = glm::vec4(eye - center, 0);
     glm::vec4 Rzz = R*zz;
-    this->center = this->eye - glm::vec3(Rzz);
-    glm::vec4 up = glm::vec4(this->vup, 0);
+    center = eye - glm::vec3(Rzz);
+    //
+    glm::vec4 up = glm::vec4(vup, 0);
     glm::vec4 Rup = R*up;
-    this->vup = glm::vec3(Rup);
+    vup = glm::vec3(Rup);
+}
+void Pov::rotateLocal(glm::vec3 axis, float angle) {
+    glm::vec3 zz = glm::normalize(eye - center);
+    glm::vec3 xx = glm::normalize(glm::cross(vup, zz));
+    glm::vec3 yy = glm::cross(zz, xx);
+    glm::vec3 aa = xx*axis.x + yy*axis.y + zz*axis.z;
+    this->rotateGlobal(aa, angle);
 }

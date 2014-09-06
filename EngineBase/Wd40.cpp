@@ -106,29 +106,19 @@ void Wd40::loadMeshInstances()
         for(int j = 0; j < instances->size(); j++)
         {
             MeshInstance* meshInstance = (*instances)[j];
-            
-            std::cout << "Mesh name:" <<  temp->getName() << std::endl;
-            
+
             TriMeshInstance* gMeshInstance = new TriMeshInstance();
             GLuint vertexShader = loadShader(meshInstance->getVertexShader().c_str(), GL_VERTEX_SHADER);
             GLuint fragmentShader = loadShader(meshInstance->getFragmentShader().c_str(), GL_FRAGMENT_SHADER);
             GLuint shaderProgram;
             
             // Mesh Instance load to OpenGL
-            std::cout << "Vertex Shader: " << meshInstance->getVertexShader() << std::endl;
-            std::cout << "Diffuse secture: " << meshInstance->getDiffuseTexture() << std::endl;
-            std::cout << "Fragment shader: " << meshInstance->getFragmentShader() << std::endl;
             gMeshInstance->diffuseTexture.loadPNG(meshInstance->getDiffuseTexture());
             gMeshInstance->diffuseTexture.sendToOpenGL();
             
             TriMesh* triMesh = this->meshMap->at(temp->getName());
-            std::cout << "Trimesh: " << temp->getName() << std::endl;
             
             gMeshInstance->setMesh(triMesh);
-            if(triMesh != NULL) {
-                std::cout << "Trimesh is not null" << std::endl;
-            }
-            
             shaderProgram = createShaderProgram(vertexShader, fragmentShader);
             gMeshInstance->setShader(shaderProgram);
             
@@ -159,9 +149,6 @@ void Wd40::loadSound()
     if(this->music) this->music->setMinDistance(5.0f);
     
     const char* soundfile = this->scene->getWorldSettings()->getBackgroundMusic().c_str();
-    if(soundfile == NULL) {
-        std::cout << "Sound file is totally null\n" << std::endl;
-    }
     this->soundEngine->play2D(soundfile);
 }
 
@@ -178,29 +165,30 @@ void Wd40::controller()
     glm::vec3 spin(0, 0, 1);
     
     if(glfwGetKey(this->gWindow, 'W')){
-        this->scene->getPov()->translate(lookUp);
+        this->scene->getPov()->translateLocal(lookUp);
     }
     if(glfwGetKey(this->gWindow, 'A')){
-        this->scene->getPov()->translate(lookLeft);
+        this->scene->getPov()->translateLocal(lookLeft);
     }
     if(glfwGetKey(this->gWindow, 'S')){
-        this->scene->getPov()->translate(lookDown);
+        this->scene->getPov()->translateLocal(lookDown);
     }
     if(glfwGetKey(this->gWindow, 'D')){
-        this->scene->getPov()->translate(lookRight);
+        this->scene->getPov()->translateLocal(lookRight);
     }
     if(glfwGetKey(this->gWindow, 'Q')){
-        this->scene->getPov()->rotate(spin, -dy);
+        this->scene->getPov()->rotateGlobal(spin, -dy);
     }
     if(glfwGetKey(this->gWindow, 'E')){
-        this->scene->getPov()->rotate(spin, dy);
+        this->scene->getPov()->rotateGlobal(spin, dy);
     }
     if(glfwGetKey(this->gWindow, GLFW_KEY_UP)){
-        this->scene->getPov()->translate(forward);
+        this->scene->getPov()->translateLocal(forward);
     }
     if(glfwGetKey(this->gWindow, GLFW_KEY_DOWN)){
-        this->scene->getPov()->translate(back);
+        this->scene->getPov()->translateLocal(back);
     }
+    this->loadPov();
 }
 
 int main(int numArgs, char **args)
@@ -223,7 +211,6 @@ int main(int numArgs, char **args)
     while(true) {
         w->render();
         w->controller();
-        w->loadPov();
         
         // handle input
 		glfwPollEvents();
