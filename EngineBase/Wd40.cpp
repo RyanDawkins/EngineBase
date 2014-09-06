@@ -199,6 +199,13 @@ int main(int numArgs, char **args)
 		exit(0);
 	}
     
+    SceneTest test;
+    if(test.runTests()) {
+        std::cout << "Scene tests ran correctly!" << std::endl;
+    } else {
+        std::cout << "Scene tests ran incorrectly" << std::endl;
+    }
+    
     Wd40* w = new Wd40();
     w->loadScene(args[1]);
     w->loadWorldSettings();

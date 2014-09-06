@@ -20,9 +20,9 @@ private:
     glm::vec3 eye;
     glm::vec3 center;
     glm::vec3 vup;
-    float fovy;
-    float znear;
-    float zfar;
+    double fovy;
+    double znear;
+    double zfar;
 public:
     std::string getName();
     Pov* setName(std::string name);
@@ -36,14 +36,14 @@ public:
     glm::vec3 getVup();
     Pov* setVup(glm::vec3 vup);
     
-    float getFovy();
-    Pov* setFlovy(float fovy);
+    double getFovy();
+    Pov* setFovy(double fovy);
     
-    float getZnear();
-    Pov* setZnear(float znear);
+    double getZnear();
+    Pov* setZnear(double znear);
     
-    float getZfar();
-    Pov* setZfar(float zfar);
+    double getZfar();
+    Pov* setZfar(double zfar);
     
     void translateGlobal(glm::vec3 &t);
     void translateLocal(glm::vec3 &t);

@@ -33,7 +33,7 @@ Pov* PovBuilder::forge()
     pov->setCenter(this->readVector(povJson["center"].array_items()));
     pov->setVup(this->readVector(povJson["vup"].array_items()));
     pov->setName(povJson["name"].string_value());
-    pov->setFlovy(povJson["flovy"].number_value());
+    pov->setFovy(povJson["fovy"].number_value());
     pov->setZnear(povJson["znear"].number_value());
     pov->setZfar(povJson["zfar"].number_value());
     

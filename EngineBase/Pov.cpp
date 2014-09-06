@@ -48,31 +48,31 @@ Pov* Pov::setVup(glm::vec3 vup)
     return this;
 };
 
-float Pov::getFovy()
+double Pov::getFovy()
 {
     return this->fovy;
 };
-Pov* Pov::setFlovy(float fovy)
+Pov* Pov::setFovy(double fovy)
 {
     this->fovy = fovy;
     return this;
 };
 
-float Pov::getZnear()
+double Pov::getZnear()
 {
     return this->znear;
 };
-Pov* Pov::setZnear(float znear)
+Pov* Pov::setZnear(double znear)
 {
     this->znear = znear;
     return this;
 };
 
-float Pov::getZfar()
+double Pov::getZfar()
 {
     return this->zfar;
 };
-Pov* Pov::setZfar(float zfar)
+Pov* Pov::setZfar(double zfar)
 {
     this->zfar = zfar;
     return this;

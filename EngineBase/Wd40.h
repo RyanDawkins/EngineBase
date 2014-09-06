@@ -16,6 +16,7 @@
 #include "WorldSettingsBuilder.h"
 #include "WorldSettings.h"
 #include "MeshInstance.h"
+#include "SceneTest.h"
 #include <map>
 
 class Wd40
