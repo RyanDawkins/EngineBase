@@ -20,9 +20,9 @@ Mesh::Mesh(long meshInstancesSize)
 
 void Mesh::constructor(long meshInstancesSize)
 {
-    if(meshInstancesSize > 0) {
-        this->meshInstances = new std::vector<MeshInstance*>(meshInstancesSize);
-    }
+    //if(meshInstancesSize > 0) {
+    this->meshInstances = new std::vector<MeshInstance*>();
+    //}
 };
 
 Mesh* Mesh::addInstance(MeshInstance *meshInstance) {
@@ -36,6 +36,7 @@ Mesh* Mesh::addInstance(MeshInstance *meshInstance) {
     if(this->meshInstances->max_size() == this->meshInstances->size()) {
         this->meshInstances->resize(this->meshInstances->max_size() * 2);
     }
+//    this->meshInstances->insert(meshInstance);
     this->meshInstances->push_back(meshInstance);
     return this;
 }

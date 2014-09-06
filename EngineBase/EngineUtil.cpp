@@ -612,6 +612,7 @@ TriMeshInstance::TriMeshInstance(void)
 
 void TriMeshInstance::draw(Camera* camera)
 {
+    
 	glUseProgram(shaderProgram);
     
 	// Inefficient.  Looks up uniforms by string every time.
@@ -624,10 +625,10 @@ void TriMeshInstance::draw(Camera* camera)
 	loc = glGetUniformLocation(shaderProgram, "uDiffuseTex");
 	if (loc != -1) glBindSampler(loc, diffuseTexture.samplerId);
 	else ERROR("Could not bind texture", false);
-	//printVec(color);
+//    printVec(color);
     
 	T.refreshTransform();
-	//printMat(transform);
+//    printMat(transform);
 
 	loc = glGetUniformLocation(shaderProgram, "uObjectWorldM");
 	if (loc != -1) glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(T.transform));

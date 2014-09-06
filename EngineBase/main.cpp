@@ -46,7 +46,7 @@
 //
 //TriMesh gMesh;
 //TriMeshInstance gMeshInstance;
-//Camera gCamera;
+//Camera* gCamera = new Camera();
 //RGBAImage textureImage;
 //
 ////-------------------------------------------------------------------------//
@@ -116,21 +116,17 @@
 //	gMeshInstance.setShader(shaderProgram);
 //}
 //
-//void loadCamera(FILE *F)
+//void loadCamera(Scene* scene)
 //{
-//	string token;
-//
-//	while (getToken(F, token, ONE_TOKENS)) {
-//		if (token == "}") break;
-//		else if (token == "eye") getFloats(F, &(gCamera.eye[0]), 3);
-//		else if (token == "center") getFloats(F, &(gCamera.center[0]), 3);
-//		else if (token == "vup") getFloats(F, &(gCamera.vup[0]), 3);
-//		else if (token == "znear") getFloats(F, &(gCamera.znear), 1);
-//		else if (token == "zfar") getFloats(F, &(gCamera.zfar), 1);
-//		else if (token == "fovy") getFloats(F, &(gCamera.fovy), 1);
-//	}
-//
-//	gCamera.refreshTransform((float)gWidth, (float)gHeight);
+//	Pov* pov = scene->getPov();
+//    gCamera->eye = pov->getEye();
+//    gCamera->center = pov->getCenter();
+//    gCamera->vup = pov->getVup();
+//    gCamera->znear = pov->getZnear();
+//    gCamera->zfar = pov->getZfar();
+//    gCamera->fovy = pov->getFovy();
+//    gCamera->refreshTransform((float)scene->getWorldSettings()->getWidth(), (float)scene->getWorldSettings()->getHeight());
+//	gCamera->refreshTransform((float)gWidth, (float)gHeight);
 //}
 //
 //void loadScene(const char *sceneFile)
@@ -142,10 +138,8 @@
 //    sceneBuilder->jsonFromFile(sceneFile);
 //    Scene* scene = sceneBuilder->forge();
 //    WorldSettings* worldSettings = scene->getWorldSettings();
-//    
-////    delete sceneBuilder;
-////    sceneBuilder = NULL;
 //    loadWorldSettings(worldSettings);
+//    loadCamera(scene);
 //    
 //	while (getToken(F, token, ONE_TOKENS)) {
 //		//cout << token << endl;
@@ -154,10 +148,10 @@
 ////			loadMesh(F);
 //		}
 //		else if (token == "meshInstance") {
-//			loadMeshInstance(F);
+////			loadMeshInstance(F);
 //		}
 //		else if (token == "camera") {
-//			loadCamera(F);
+////			loadCamera(scene);
 //		}
 //	}
 //}
@@ -211,63 +205,63 @@
 //// Main method
 ////-------------------------------------------------------------------------//
 //
-////int main(int numArgs, char **args)
-////{
-////	// check usage
-////	if (numArgs < 2) {
-////		cout << "Usage: Transforms sceneFile.scene" << endl;
-////		exit(0);
-////	}
-////
-////	// Start sound engine
-////    soundEngine = createIrrKlangDevice();
-////	if (!soundEngine) return 0;
-////	soundEngine->setListenerPosition(vec3df(0, 0, 0), vec3df(0, 0, 1));
-////	soundEngine->setSoundVolume(0.25f); // master volume control
-////
-////	// Play 3D sound
-////	string soundFileName;
-////	ISound* music = soundEngine->play3D(soundFileName.c_str(), vec3df(0, 0, 10), true); // position and looping
-////	if (music) music->setMinDistance(5.0f); // distance of full volume
-////
-////	loadScene(args[1]);
-////
-////	// start time (used to time framerate)
-////	double startTime = TIME();
-////    
-////	// render loop
-////	while (true) {
-////		// update and render
-////		update();
-////		render();
-////        
-////		// handle input
-////		glfwPollEvents();
-////		//if (glfwGetKey(gWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS) break;
-////		if (glfwWindowShouldClose(gWindow) != 0) break;
-////
-////		double xx, yy;
-////		glfwGetCursorPos(gWindow, &xx, &yy);
-////		printf("%1.3f %1.3f ", xx, yy);
-////        
-////		// print framerate
-////		double endTime = TIME();
-////		printf("\rFPS: %1.0f  ", 1.0/(endTime-startTime));
-////		startTime = endTime;
-////        
-////		// swap buffers
-////		//SLEEP(1); // sleep 1 millisecond to avoid busy waiting
-////		glfwSwapBuffers(gWindow);
-////	}
-////
-////	// Shut down sound engine
-////	if (music) music->drop(); // release music stream.
-////	soundEngine->drop(); // delete engine
-////    
-////	// Close OpenGL window and terminate GLFW
-////	glfwTerminate();
-////	return 0;
-////}
+//int main(int numArgs, char **args)
+//{
+//	// check usage
+//	if (numArgs < 2) {
+//		cout << "Usage: Transforms sceneFile.scene" << endl;
+//		exit(0);
+//	}
+//
+//	// Start sound engine
+//    soundEngine = createIrrKlangDevice();
+//	if (!soundEngine) return 0;
+//	soundEngine->setListenerPosition(vec3df(0, 0, 0), vec3df(0, 0, 1));
+//	soundEngine->setSoundVolume(0.25f); // master volume control
+//
+//	// Play 3D sound
+//	string soundFileName;
+//	ISound* music = soundEngine->play3D(soundFileName.c_str(), vec3df(0, 0, 10), true); // position and looping
+//	if (music) music->setMinDistance(5.0f); // distance of full volume
+//
+//	loadScene(args[1]);
+//
+//	// start time (used to time framerate)
+//	double startTime = TIME();
+//    
+//	// render loop
+//	while (true) {
+//		// update and render
+//		//update();
+//		render();
+//        
+//		// handle input
+//		glfwPollEvents();
+//		//if (glfwGetKey(gWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS) break;
+//		if (glfwWindowShouldClose(gWindow) != 0) break;
+//
+//		double xx, yy;
+//		glfwGetCursorPos(gWindow, &xx, &yy);
+//		printf("%1.3f %1.3f ", xx, yy);
+//        
+//		// print framerate
+//		double endTime = TIME();
+//		printf("\rFPS: %1.0f  ", 1.0/(endTime-startTime));
+//		startTime = endTime;
+//        
+//		// swap buffers
+//		//SLEEP(1); // sleep 1 millisecond to avoid busy waiting
+//		glfwSwapBuffers(gWindow);
+//	}
+//
+//	// Shut down sound engine
+//	if (music) music->drop(); // release music stream.
+//	soundEngine->drop(); // delete engine
+//    
+//	// Close OpenGL window and terminate GLFW
+//	glfwTerminate();
+//	return 0;
+//}
 //
 ////-------------------------------------------------------------------------//
 //

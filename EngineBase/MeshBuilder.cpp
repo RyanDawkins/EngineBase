@@ -56,8 +56,8 @@ std::vector<Mesh*>* MeshBuilder::forgeMeshes()
             meshInstance->setVertexShade(meshInstances[i]["vertexShader"].string_value());
             meshInstance->setFragmentShader(meshInstances[i]["fragmentShader"].string_value());
             meshInstance->setDiffuseTexture(meshInstances[i]["diffuseTexture"].string_value());
-
-            mesh->addInstance(meshInstance);
+            if(mesh != NULL)
+                mesh->addInstance(meshInstance);
         }
 
         // Adding our mesh to the junk

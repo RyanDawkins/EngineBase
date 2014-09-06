@@ -109,9 +109,6 @@ void Wd40::loadMeshInstances()
             
             std::cout << "Mesh name:" <<  temp->getName() << std::endl;
             
-            if(meshInstance == NULL) {
-                continue;
-            }
             TriMeshInstance* gMeshInstance = new TriMeshInstance();
             GLuint vertexShader = loadShader(meshInstance->getVertexShader().c_str(), GL_VERTEX_SHADER);
             GLuint fragmentShader = loadShader(meshInstance->getFragmentShader().c_str(), GL_FRAGMENT_SHADER);
@@ -140,7 +137,7 @@ void Wd40::loadMeshInstances()
     }
 };
 
-void Wd40::loadCamera()
+void Wd40::loadPov()
 {
     Pov* pov = this->scene->getPov();
     this->gCamera->eye = pov->getEye();
@@ -198,6 +195,12 @@ void Wd40::controller()
     if(glfwGetKey(this->gWindow, 'E')){
         this->scene->getPov()->rotate(spin, dy);
     }
+    if(glfwGetKey(this->gWindow, GLFW_KEY_UP)){
+        this->scene->getPov()->translate(forward);
+    }
+    if(glfwGetKey(this->gWindow, GLFW_KEY_DOWN)){
+        this->scene->getPov()->translate(back);
+    }
 }
 
 int main(int numArgs, char **args)
@@ -211,7 +214,7 @@ int main(int numArgs, char **args)
     Wd40* w = new Wd40();
     w->loadScene(args[1]);
     w->loadWorldSettings();
-    w->loadCamera();
+    w->loadPov();
     w->loadSound();
     w->loadMeshes();
     w->loadMeshInstances();
@@ -220,8 +223,7 @@ int main(int numArgs, char **args)
     while(true) {
         w->render();
         w->controller();
-        w->loadCamera();
-        //w->update();
+        w->loadPov();
         
         // handle input
 		glfwPollEvents();

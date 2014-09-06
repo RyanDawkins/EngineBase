@@ -48,7 +48,7 @@ public:
     void loadWorldSettings();
     void loadMeshes();
     void loadMeshInstances();
-    void loadCamera();
+    void loadPov();
     void loadSound();
     void update();
     void render();
