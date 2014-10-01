@@ -217,6 +217,7 @@ int main(int numArgs, char **args)
     double startTime = TIME();
     while(true) {
         w->render();
+        //w->update();
         w->controller();
         
         // handle input
