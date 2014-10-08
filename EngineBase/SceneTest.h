@@ -11,7 +11,7 @@
 
 #include <iostream>
 #include "SceneBuilder.h"
-#include "Scene.h"
+#include "SceneStruct.h"
 #include "WorldSettings.h"
 #include "Pov.h"
 #include <string>

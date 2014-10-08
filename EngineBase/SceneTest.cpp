@@ -17,7 +17,7 @@ bool SceneTest::runTests()
 {
     SceneBuilder* builder = new SceneBuilder();
     builder->jsonFromFile("monkeyScene.json");
-    Scene* scene = builder->forge();
+    SceneStruct* scene = builder->forge();
     if(scene == NULL) {
         return false;
     }

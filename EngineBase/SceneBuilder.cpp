@@ -48,9 +48,9 @@ SceneBuilder* SceneBuilder::setJson(json11::Json* json)
 };
 
 // Method to forge our junks
-Scene* SceneBuilder::forge()
+SceneStruct* SceneBuilder::forge()
 {
-    Scene* scene = new Scene();
+    SceneStruct* scene = new SceneStruct();
     
     // Grabbing all world settings
     json11::Json* wsJson = new json11::Json((*this->json)["worldSettings"]);

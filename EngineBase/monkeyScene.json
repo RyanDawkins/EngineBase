@@ -29,12 +29,12 @@
                         "diffuseTexture": "hex.png"
                    },
                    {
-                          "name": "monkey2",
-                          "scale": [0.5, 0.5, 0.5],
-                          "vertexShader": "basicVertexShader.vs",
-                          "fragmentShader": "diffuseTexture.fs",
-                          "diffuseTexture": "hex.png"
-                          }
+                        "name": "monkey2",
+                        "scale": [0.5, 0.5, 0.5],
+                        "vertexShader": "basicVertexShader.vs",
+                        "fragmentShader": "diffuseTexture.fs",
+                        "diffuseTexture": "hex.png"
+                   }
             ]
         }
     ]

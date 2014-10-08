@@ -15,7 +15,7 @@
 #include <streambuf>
 #include <string>
 #include "json11.hpp"
-#include "Scene.h"
+#include "SceneStruct.h"
 #include "WorldSettingsBuilder.h"
 #include "WorldSettings.h"
 #include "Mesh.h"
@@ -42,7 +42,7 @@ public:
     SceneBuilder* setJson(json11::Json* json);
     
     // Method to forge a Scene based off of the data we sent earlier
-    Scene* forge();
+    SceneStruct* forge();
 };
 
 #endif /* defined(__EngineBase__SceneBuilder__) */

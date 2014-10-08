@@ -12,7 +12,7 @@
 #include <iostream>
 #include "EngineUtil.h"
 #include "SceneBuilder.h"
-#include "Scene.h"
+#include "SceneStruct.h"
 #include "WorldSettingsBuilder.h"
 #include "WorldSettings.h"
 #include "MeshInstance.h"
@@ -23,7 +23,7 @@ class Wd40
 {
 private:
     GLFWwindow* gWindow;
-    Scene* scene;
+    SceneStruct* scene;
     ISoundEngine* soundEngine;
     ISound* music;
     Camera* gCamera;

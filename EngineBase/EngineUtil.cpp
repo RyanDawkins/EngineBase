@@ -27,7 +27,7 @@ double TIME(void)
 
 void SLEEP(int millis)
 {
-	this_thread::sleep_for(chrono::milliseconds(1));
+	this_thread::sleep_for(chrono::milliseconds(millis));
 }
 
 //-------------------------------------------------------------------------//
@@ -91,9 +91,9 @@ GLuint loadShader(const string &fileName, GLuint shaderType)
     
 	// print the shader code
 	#ifdef _DEBUG
-	cout << "\n----------------------------------------------- SHADER CODE:\n";
-	cout << shaderCode << endl;
-	cout << "--------------------------------------------------------------\n";
+	//cout << "\n----------------------------------------------- SHADER CODE:\n";
+	//cout << shaderCode << endl;
+	//cout << "--------------------------------------------------------------\n";
 	#endif
     
 	// transfer shader code to card and compile
@@ -147,6 +147,13 @@ GLuint createShaderProgram(GLuint vertexShader, GLuint fragmentShader)
 		glDeleteProgram(shaderProgram);
 		return NULL_HANDLE;
 	}
+
+	// HOOK UP UNIFORM BUFFER AND UNIFORM BLOCK TO SAME BINDING POINT
+	GLint lightBlockIndex = glGetUniformBlockIndex(shaderProgram, "Lights");
+	glUniformBlockBinding(shaderProgram, lightBlockIndex, LIGHT_BUFFER_ID);
+	glBindBufferBase(GL_UNIFORM_BUFFER, LIGHT_BUFFER_ID, gLightBufferObject);
+
+	//printf("LIGHT STUFF %d %d %d\n", shaderProgram, lightBlockIndex, lightBufferObject);
     
 	return shaderProgram;
 }
@@ -182,6 +189,13 @@ void removeFromPath(const string &p)
 {
 	for (int i = (int)p.length() - 1; i >= 0; i--) {
 		if (PATH[i] == p) PATH.erase(PATH.begin() + i);
+	}
+}
+
+void printPath(void)
+{
+	for (int i = 0; i < (int)PATH.size(); i++) {
+		cout << PATH[i] << endl;
 	}
 }
 
@@ -431,6 +445,7 @@ void RGBAImage::sendToOpenGL(GLuint magFilter, GLuint minFilter, bool createMipM
 
 bool TriMesh::readFromPly(const string &fileName, bool flipZ)
 {
+	name = fileName;
 	FILE *f = openFileForReading(fileName);
 	if (f == NULL) return false;
 	string token, t;
@@ -523,6 +538,49 @@ bool TriMesh::readFromPly(const string &fileName, bool flipZ)
 
 //-------------------------------------------------------------------------//
 
+void Material::bindMaterial(Transform &T, Camera &camera)
+{
+	glUseProgram(shaderProgram);
+
+	// MATRICES FROM TRANSFORM
+	GLint loc = glGetUniformLocation(shaderProgram, "uObjectWorldM");
+	if (loc != -1) glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(T.transform));
+	//
+	loc = glGetUniformLocation(shaderProgram, "uObjectWorldInverseM");
+	if (loc != -1) glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(T.invTransform));
+	//
+	glm::mat4x4 objectWorldViewPerspect = camera.worldViewProject * T.transform;
+	loc = glGetUniformLocation(shaderProgram, "uObjectPerpsectM");
+	if (loc != -1) glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(objectWorldViewPerspect));
+
+	// MATERIAL COLORS
+	for (int i = 0; i < (int) colors.size(); i++) {
+		if (colors[i].id == -1) {
+			loc = glGetUniformLocation(shaderProgram, colors[i].name.c_str());
+			colors[i].id = loc;
+		}
+		if (colors[i].id >= 0) {
+			glUniform4fv(colors[i].id, 1, &colors[i].val[0]);
+		}
+	}
+
+	// MATERIAL TEXTURES
+	for (int i = 0; i < (int) textures.size(); i++) {
+		if (textures[i].id == -1) {
+			loc = glGetUniformLocation(shaderProgram, textures[i].name.c_str());
+			textures[i].id = loc;
+		}
+		if (textures[i].id >= 0) {
+			//printf("\n%d %d\n", textures[i].id, textures[i].val->samplerId);
+			glActiveTexture(GL_TEXTURE0 + i);
+			glUniform1i(textures[i].id, i);
+			glBindTexture(GL_TEXTURE_2D, textures[i].val->textureId);
+			glBindSampler(textures[i].id, textures[i].val->samplerId);
+		}
+	}
+}
+//-------------------------------------------------------------------------//
+
 #define V_POSITION 0
 #define V_NORMAL 1
 #define V_ST 2
@@ -574,7 +632,6 @@ bool TriMesh::sendToOpenGL(void)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
     
-    
 	// Generate the index buffer
 	glGenBuffers(1, &ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
@@ -601,9 +658,7 @@ void TriMesh::draw(void)
 TriMeshInstance::TriMeshInstance(void)
 {
 	triMesh = NULL;
-	shaderProgram = NULL_HANDLE;
-    
-	diffuseColor = glm::vec4(1, 1, 1, 1);
+	
 	T.scale = glm::vec3(1, 1, 1);
 	T.translation = glm::vec3(0, 0, 0);
 }
@@ -612,38 +667,24 @@ TriMeshInstance::TriMeshInstance(void)
 
 void TriMeshInstance::draw(Camera* camera)
 {
-    
-	glUseProgram(shaderProgram);
-    
-	// Inefficient.  Looks up uniforms by string every time.
-	// Setting the uniforms should probably part of a Material
-	// class.
-	
-	GLint loc = glGetUniformLocation(shaderProgram, "uDiffuseColor");
-	if (loc != -1) glUniform4fv(loc, 1, &diffuseColor[0]);
-
-	loc = glGetUniformLocation(shaderProgram, "uDiffuseTex");
-	if (loc != -1) glBindSampler(loc, diffuseTexture.samplerId);
-	else ERROR("Could not bind texture", false);
-//    printVec(color);
-    
 	T.refreshTransform();
-//    printMat(transform);
-
-	loc = glGetUniformLocation(shaderProgram, "uObjectWorldM");
-	if (loc != -1) glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(T.transform));
-	else ERROR("Could not load uniform uObjectWorldM", false);
-
-	loc = glGetUniformLocation(shaderProgram, "uObjectWorldInverseM");
-	if (loc != -1) glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(T.invTransform));
-	else ERROR("Could not load uniform uObjectWorldInverseM", false);
-
-	glm::mat4x4 objectWorldViewPerspect = camera->worldViewProject * T.transform;
-	loc = glGetUniformLocation(shaderProgram, "uObjectPerpsectM");
-	if (loc != -1) glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(objectWorldViewPerspect));
-	else ERROR("Could not load uniform uObjectPerpsectM", false);
-    
-	triMesh->draw();
+	mat.bindMaterial(T, *camera);
+	if (triMesh != NULL) triMesh->draw();
+	else printf("Error! Null Mesh.");
 }
 //-------------------------------------------------------------------------//
 
+GLuint gLightBufferObject = NULL_HANDLE;
+int gNumLights = 0;
+Light gLights[MAX_LIGHTS];
+
+void initLightBuffer() 
+{
+	if (gLightBufferObject != NULL_HANDLE) return;
+	glGenBuffers(LIGHT_BUFFER_ID, &gLightBufferObject); // create a new buffer id
+
+	glBindBuffer(GL_UNIFORM_BUFFER, gLightBufferObject); // bind the new buffer
+	glBufferData(GL_UNIFORM_BUFFER, sizeof(Light) * MAX_LIGHTS, gLights, GL_STREAM_DRAW);
+	glBindBuffer(GL_UNIFORM_BUFFER, 0); // unbind buffer
+}
+//-------------------------------------------------------------------------//

@@ -48,10 +48,14 @@ void Wd40::update()
         glm::quat r = glm::quat(glm::vec3(0.0f, 0.0051f, 0.00f));
         gMeshInstance.T.rotation *= r;
 	
-        gMeshInstance.diffuseColor += glm::vec4(0.0013f, 0.000921f, 0.00119f, 0.0f);
-        if (gMeshInstance.diffuseColor[0] > 1.0f) gMeshInstance.diffuseColor[0] = 0.25f;
-        if (gMeshInstance.diffuseColor[1] > 1.0f) gMeshInstance.diffuseColor[1] = 0.25f;
-        if (gMeshInstance.diffuseColor[2] > 1.0f) gMeshInstance.diffuseColor[2] = 0.25f;
+        vector<NameIdVal<glm::vec4>> colors = gMeshInstance.mat.colors;
+        for(vector<NameIdVal<glm::vec4>>::iterator it = colors.begin(); it != colors.end(); ++it) {
+            glm::vec4 color = (*it).val;
+            color += glm::vec4(0.0013f, 0.000921f, 0.00119f, 0.0f);
+            if (color[0] > 1.0f) color[0] = 0.25f;
+            if (color[1] > 1.0f) color[1] = 0.25f;
+            if (color[2] > 1.0f) color[2] = 0.25f;
+        }
     }
 };
 
@@ -113,14 +117,22 @@ void Wd40::loadMeshInstances()
             GLuint shaderProgram;
             
             // Mesh Instance load to OpenGL
-            gMeshInstance->diffuseTexture.loadPNG(meshInstance->getDiffuseTexture());
-            gMeshInstance->diffuseTexture.sendToOpenGL();
+            RGBAImage *image = scene->getTexture(meshInstance->getDiffuseTexture());
+            if (image == NULL) {
+                image = new RGBAImage();
+                image->loadPNG(meshInstance->getDiffuseTexture());
+                image->sendToOpenGL();
+                scene->addTexture(meshInstance->getDiffuseTexture(), image);
+            }
             
             TriMesh* triMesh = this->meshMap->at(temp->getName());
             
             gMeshInstance->setMesh(triMesh);
             shaderProgram = createShaderProgram(vertexShader, fragmentShader);
-            gMeshInstance->setShader(shaderProgram);
+            
+            std::string diffuseTexture = meshInstance->getDiffuseTexture();
+            NameIdVal<RGBAImage*> texref(diffuseTexture, -1, image);
+            gMeshInstance->mat.textures.push_back(texref);
             
             this->instances.push_back(gMeshInstance);
         }
